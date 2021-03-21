@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.Inject
 import models.MasterRepository
-import play.api.libs.json.Json
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request}
 import play.api.data.Forms._
 import play.api.data._
@@ -54,6 +54,50 @@ class ApiController @Inject() (cc: ControllerComponents,
       println(BoxForm.bindFromRequest().get)
 
       Ok(Json.obj("result" -> 0))
+
+  }
+
+  def setCookies() = Action { implicit request =>
+
+
+    println("SetCookies")
+
+    println(request.session.get("name"))
+
+    request.session.get("name") match {
+      case Some("Hello") =>
+        println("Hello")
+        Ok(Json.obj("result" -> 1))
+      case _ =>
+        println("NotHello")
+        Ok(Json.obj("result" -> 0)).withSession("name" -> "Hello")
+    }
+
+  }
+
+  def clearCookies() = Action {
+    implicit request =>
+      println("clearCookie")
+      Ok(Json.obj("result" -> 2)).withNewSession
+  }
+
+
+  def upload() = Action(parse.multipartFormData){ implicit request =>
+
+    /*
+    * upload the file to /tmp directory
+    * rename file name to miniseconds
+    * */
+    request.body.file("file").map{ x =>
+
+      println(x.filename)
+
+      val json:JsValue = Json.obj("file" -> s"Hello", "upresult" -> 0)
+
+      //Ok(Json.parse(s"""{"upresult":0 }"""))
+      Ok(json)
+
+    }.getOrElse(Ok(Json.parse(s"""{"upresult":1 }""")))
 
   }
 

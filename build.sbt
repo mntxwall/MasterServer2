@@ -4,6 +4,7 @@ organization := "com.example"
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayService, PlayLayoutPlugin)
+  //.disablePlugins(PlayFilters)
 
 scalaVersion := "2.13.1"
 
