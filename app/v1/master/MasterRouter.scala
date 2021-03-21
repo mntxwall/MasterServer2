@@ -19,7 +19,6 @@ class MasterRouter @Inject()(controller:ApiController) extends SimpleRouter{
       controller.rollBox()
     case POST(p"/cookies") =>
       controller.cookiesTest()
-
     case POST(p"/upload") =>
       controller.upload();
   }

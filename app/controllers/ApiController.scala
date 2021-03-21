@@ -95,15 +95,12 @@ class ApiController @Inject() (cc: ControllerComponents,
         case Some(value) =>
           println("got cookies value")
           Ok(Json.obj("result" -> 1))
-        case _ =>""
+        case _ =>
           println("cookies value empty")
           Ok(Json.obj("result" -> 0)).withSession("username" -> "cw")
             .withHeaders("Access-Control-Allow-Credentials" ->"true")
       }
   }
-
-
-
 
 
 }
