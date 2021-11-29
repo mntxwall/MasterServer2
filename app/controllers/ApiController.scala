@@ -47,6 +47,7 @@ class ApiController @Inject() (cc: ControllerComponents,
       Ok("Hello")
   }
 
+  /*
   def upload() = Action(parse.multipartFormData){ implicit request =>
 
 
@@ -72,7 +73,10 @@ class ApiController @Inject() (cc: ControllerComponents,
     }.getOrElse(Ok(Json.parse(s"""{"upresult":1 }""")))
 
 
+
   }
+
+   */
 
 
   def rollBox() = Action{
